@@ -16,7 +16,7 @@ setup(
     name="crunner",
     packages=['crunner'],
     version="0.0.1",
-    description="Pytest continues runner.",
+    description="Continues test runner.",
     author="Pawel Chomicki",
     author_email="pawel.chomicki@gmail.com",
     install_requires=requires,
