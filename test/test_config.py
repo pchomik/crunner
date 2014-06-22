@@ -26,6 +26,7 @@ class TestConfig(unittest.TestCase):
         ConfigLoader(path='/tmp/config')
 
     @patch('crunner.config.json.loads')
+    @patch('crunner.config.os.path.exists', Mock(return_value=True))
     def test__load__returns_notify_and_pytest_path_and_projects(self, fake_loads):
         fake_loads.return_value = CONFIG_DATA
         notify, pytest, projects = ConfigLoader().load()
