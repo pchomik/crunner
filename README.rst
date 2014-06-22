@@ -3,6 +3,7 @@ crunner
 crunner is small application to run test continuously and notify about every change
 
 Main features:
+
 * continuously watch directories
 * execute proper tests after every change
 * send graphics notification about test result
