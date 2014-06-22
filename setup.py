@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 requires = [
     'mock==1.0.1',
     'watchdog==0.7.1',
-    'py.test'
+    'pytest==2.5.2'
 ]
 
 
