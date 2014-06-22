@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 crunner
 =======
 crunner is small application to run test continuously and notify about every change
@@ -12,10 +11,10 @@ requirements
 ============
 
 * Python 2.7.x (not tested with Python 3.x)
-* notify-send
-* py.test
-* watchdog
-* mock (for testing)
+* notify-send  (linux application)
+* py.test      (test framework)
+* watchdog     (python package)
+* mock         (for testing)
 
 Continues Integration
 =====================
