@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-:author: Pawel Chomicki
-"""
 from setuptools import setup, find_packages
 
 

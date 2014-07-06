@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-"""
-:author: Pawel Chomicki
-"""
 import time
+
 from watchdog.events import RegexMatchingEventHandler
 
 

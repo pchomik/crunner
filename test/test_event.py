@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-:author: Pawel Chomicki
-"""
 import time
 import unittest
 

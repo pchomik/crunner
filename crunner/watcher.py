@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-:author: Pawel Chomicki
-"""
 from watchdog.observers import Observer
 
 

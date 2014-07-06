@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-:author: Pawel Chomicki
-"""
 import unittest
 
 from mock import patch, call, Mock
