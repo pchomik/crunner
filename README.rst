@@ -6,14 +6,14 @@ Main features:
 
 * continuously watch directories
 * execute proper tests after every change
-* send graphics notification about test result
+* send notification about test result
+* test framework independent
+* notifier independent
 
-requirements
+Requirements
 ============
 
 * Python 2.7.x (not tested with Python 3.x)
-* notify-send  (linux application)
-* py.test      (test framework)
 * watchdog     (python package)
 * mock         (for testing)
 
@@ -30,16 +30,38 @@ Install
 =======
 TBD
 
+Configuration
+=============
+Configuration file **.crunner.json** has to creates in user home directory. The format of file may look like below:
+
+::
+
+    {
+      "notifier": {
+        "cmd": "/usr/bin/notify-send",
+        "img_arg": "-i",
+        "msg_arg": "",
+        "add_args": ""
+      },
+      "tester": {
+        "cmd": "/usr/local/bin/py.test",
+        "args": "-s --timeout 1 --random --pep8"
+      },
+      "projects": {
+        "crunner": {
+          "active": true,
+          "test_path": "/home/user/workspace/crunner/test/",
+          "watch_path": "/home/user/workspace/crunner"
+        }
+      }
+    }
+
+Presented configuration is notifier and test framework independent. It is possible to extend this configuration to watch
+multiple projects by adding new configuration project.
+
 Contribution
 ============
 Please feel free to present your idea by code example (pull request) or reported issues.
-
-Future plans
-============
-* Handle test execution without py.test
-* Support for nose and other unittest frameworks
-* Provide working directory settings
-* Provide custom arguments settings
 
 License
 =======
