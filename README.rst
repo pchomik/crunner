@@ -32,7 +32,7 @@ TBD
 
 Configuration
 =============
-Configuration file **.crunner.json** has to creates in user home directory. The format of file may look like below:
+Configuration file **.crunner.json** has to created in user home directory. The format of the file looks like below:
 
 ::
 
