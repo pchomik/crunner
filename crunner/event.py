@@ -13,5 +13,4 @@ class FileEvent(RegexMatchingEventHandler):
     def on_modified(self, event):
         if time.time() - self.last_executed > 5:
             self.last_executed = time.time()
-            time.sleep(1)
             self.runner.test(self.name, self.path)

@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
-"""
-:author: Pawel Chomicki
-"""
 import unittest
-
-from mock import patch, call, Mock
+from mock import patch, Mock
 from crunner.config import ConfigLoader
 
 
 CONFIG_DATA = {
-    'notify_path': '/tmp/notify-send',
-    'pytest_path': '/tmp/py.test',
+    'notifier': {
+        'cmd': '/tmp/notify-send',
+        'img_arg': '-i',
+        'msg_arg': '-m',
+        'add_args': '--hint=int:transient:1'
+    },
+    'tester': {
+        'cmd': '/tmp/py.test',
+        'args': '-s'
+    },
     'projects': {
         'A': {
             'active': True,
@@ -30,9 +34,13 @@ class TestConfig(unittest.TestCase):
     @patch('crunner.config.os.path.exists', Mock(return_value=True))
     def test__load__returns_notify_and_pytest_path_and_projects(self, fake_loads):
         fake_loads.return_value = CONFIG_DATA
-        notify, pytest, projects = ConfigLoader().load()
-        self.assertEqual(notify, '/tmp/notify-send')
-        self.assertEqual(pytest, '/tmp/py.test')
+        notifier, pytest, projects = ConfigLoader().load()
+        self.assertEqual(notifier['cmd'], '/tmp/notify-send')
+        self.assertEqual(notifier['msg_arg'], '-m')
+        self.assertEqual(notifier['img_arg'], '-i')
+        self.assertEqual(notifier['add_args'], '--hint=int:transient:1')
+        self.assertEqual(pytest['cmd'], '/tmp/py.test')
+        self.assertEqual(pytest['args'], '-s')
         self.assertIn('A', projects)
 
 
