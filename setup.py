@@ -17,6 +17,6 @@ setup(
     author="Pawel Chomicki",
     author_email="pawel.chomicki@gmail.com",
     install_requires=requires,
-    url="https://github.com/pchomik/pytest-c-runner",
-    scripts=['script/crun.py']
+    url="https://github.com/pchomik/crunner",
+    scripts=['script/crun']
 )
