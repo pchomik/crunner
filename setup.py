@@ -5,14 +5,13 @@ from setuptools import setup, find_packages
 requires = [
     'mock==1.0.1',
     'watchdog==0.7.1',
-    'pytest==2.5.2'
 ]
 
 
 setup(
     name="crunner",
     packages=['crunner'],
-    version="0.0.1",
+    version="0.1.0",
     description="Continues test runner.",
     author="Pawel Chomicki",
     author_email="pawel.chomicki@gmail.com",
