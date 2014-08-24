@@ -11,11 +11,11 @@ requires = [
 setup(
     name="crunner",
     packages=['crunner'],
-    version="0.2.0",
+    version="0.2.1",
     description="Continues test runner.",
     author="Pawel Chomicki",
     author_email="pawel.chomicki@gmail.com",
     install_requires=requires,
-    url="https://github.com/pchomik/crunner",
+    url="http://pchomik.github.io/crunner/",
     scripts=['script/crun']
 )
