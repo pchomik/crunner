@@ -11,7 +11,7 @@ requires = [
 setup(
     name="crunner",
     packages=['crunner'],
-    version="0.1.0",
+    version="0.2.0",
     description="Continues test runner.",
     author="Pawel Chomicki",
     author_email="pawel.chomicki@gmail.com",

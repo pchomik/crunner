@@ -1,6 +1,6 @@
 crunner
 =======
-crunner is small application to run test continuously and notify about every change
+crunner is small application to run test after every change and notify about results.
 
 Main features:
 
@@ -28,7 +28,7 @@ Latest version of plugin is available in `drone.io project artifacts <https://dr
 
 Install
 =======
-TBD
+pip install crunner
 
 Configuration
 =============
@@ -45,13 +45,14 @@ Configuration file **.crunner.json** has to created in user home directory. The 
       },
       "tester": {
         "cmd": "/usr/local/bin/py.test",
-        "args": "-s --timeout 1 --random --pep8"
+        "args": "-s --timeout 1 --random --pep8",
+        "run_on_startup": true
       },
       "projects": {
         "crunner": {
           "active": true,
           "test_path": "/home/user/workspace/crunner/test/",
-          "watch_path": "/home/user/workspace/crunner"
+          "project_path": "/home/user/workspace/crunner"
         }
       }
     }

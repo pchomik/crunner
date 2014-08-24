@@ -1,24 +1,23 @@
 # -*- coding: utf-8 -*-
-# TODO: Handle the py.test execution better (clean screen)
-# TODO: Move command builder to separate method/class
-
 import os
-import pkg_resources
+import time
 
 from subprocess import Popen
 from .logger import log
 
 
 class Runner(object):
+    def __init__(self, notifier, tester_cmd, tester_args):
+        self._tester_cmd = tester_cmd
+        self._tester_args = tester_args
+        self._notifier = notifier
 
-    NOTIFIER_BASE_CMD = '{cmd} {img_arg} "{img}" {add_args} {msg_arg} {msg}'
+    def test(self, name, project_path, test_path):
+        self._print_execution_header()
+        result = self._execute_tests(project_path, test_path)
+        self._call_notifier(name, result)
 
-    def __init__(self, tester_args, notifier_args):
-        self._dispatch_args(tester_args, notifier_args)
-        self._ok_img = pkg_resources.resource_filename(__name__, 'images/ok.png')
-        self._nok_img = pkg_resources.resource_filename(__name__, 'images/nok.png')
-
-    def test(self, name, path):
+    def _print_execution_header(self):
         log.info(
             "\n\n\n" +
             "".ljust(40, '-').rjust(80, '-') +
@@ -26,44 +25,25 @@ class Runner(object):
             "".ljust(40, '-').rjust(80, '-') +
             "\n\n\n"
         )
-        os.chdir('/tmp')
-        cmd = "cd /tmp; {} {} {}".format(self._tester_cmd, self._tester_args, path)
-        proc = Popen(cmd, shell=True)
-        result = None
-        while True:
-            result = proc.poll()
-            if result is not None:
-                break
 
-        if result == 0:
-            cmd = self.NOTIFIER_BASE_CMD.format(cmd=self._notifier_cmd,
-                                                img_arg=self._notifier_img_arg,
-                                                img=self._ok_img,
-                                                add_args=self._notifier_add_args,
-                                                msg_arg=self._notifier_msg_arg,
-                                                msg=name)
-        else:
-            cmd = self.NOTIFIER_BASE_CMD.format(cmd=self._notifier_cmd,
-                                                img_arg=self._notifier_img_arg,
-                                                img=self._nok_img,
-                                                add_args=self._notifier_add_args,
-                                                msg_arg=self._notifier_msg_arg,
-                                                msg=name)
-        Popen(cmd, shell=True)
+    def _execute_tests(self, project_path, test_path="2222"):
+        if not os.path.exists(project_path):
+            log.warn("Specified path ({}) doesn't exist. Tests are skipped.".format(project_path))
+            return -1
+        os.chdir(project_path)
+        cmd = "cd {}; {} {} {}".format(project_path, self._tester_cmd, self._tester_args, test_path)
+        proc = Popen(cmd, shell=True)
+        return self._wait_until_execution_result(proc)
+
+    def _wait_until_execution_result(self, proc):
+        result = None
+        while result is None:
+            result = proc.poll()
+            time.sleep(.1)
         return result
 
-    def _dispatch_args(self, tester_args, notifier_args):
-        self._tester_cmd = tester_args.get('cmd')
-        self._tester_args = tester_args.get('args')
-        self._notifier_cmd = notifier_args.get('cmd')
-        self._notifier_img_arg = notifier_args.get('img_arg')
-        if self._notifier_img_arg == '':
-            self._disable_images()
-        self._notifier_msg_arg = notifier_args.get('msg_arg')
-        self._notifier_add_args = notifier_args.get('add_args')
-
-    def _disable_images(self):
-        self._nok_img = ''
-        self._ok_img = ''
-
-
+    def _call_notifier(self, name, result):
+        if result == 0:
+            self._notifier.send_ok(name)
+        else:
+            self._notifier.send_nok(name)
