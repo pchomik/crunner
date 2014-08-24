@@ -1,79 +1,100 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
+<head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="description" content="Crunner : Application to run test continuously and notify about every change">
-
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
     <title>Crunner</title>
-  </head>
+</head>
 
-  <body>
+<body>
+<!-- HEADER -->
+<div id="header_wrap" class="outer">
+    <header class="inner">
+        <a id="forkme_banner" href="https://github.com/pchomik/crunner">View on GitHub</a>
+        <h1 id="project_title">Crunner</h1>
+        <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/pchomik/crunner/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/pchomik/crunner/tarball/master">Download this project as a tar.gz file</a>
+        </section>
+    </header>
+</div>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/pchomik/crunner">View on GitHub</a>
+<!-- MAIN CONTENT -->
+<div id="main_content_wrap" class="outer">
+    <section id="main_content" class="inner">
+        <h3><a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h3>
+        <p>Crunner is small application to run test after every change and notify about results.</p>
+        <p>Main features:</p>
+        <ul>
+            <li>Continuously watch directories</li>
+            <li>Execute proper tests after every change</li>
+            <li>Send notification about test result</li>
+            <li>Test framework independent</li>
+            <li>Notifier independent</li>
+        </ul>
 
-          <h1 id="project_title">Crunner</h1>
-          <h2 id="project_tagline">Application to run test continuously and notify about every change</h2>
+        <h3><a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h3>
+        <ul>
+            <li>Python 2.7.x (not tested with Python 3.x)</li>
+            <li>watchdog     (python package)</li>
+            <li>mock         (for testing)</li>
+        </ul>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/pchomik/crunner/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/pchomik/crunner/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+        <h3><a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Installation</h3>
+        <pre><code>pip install crunner</code></pre>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+        <h3><a name="ci" class="anchor" href="#ci"><span class="octicon octicon-link"></span></a>Continues Integration</h3>
+        <p><a class="anchor" href="https://drone.io/github.com/pchomik/crunner/latest"><img src="https://drone.io/github.com/pchomik/crunner/status.png"></a></p>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+        <h3><a name="download" class="anchor" href="#download"><span class="octicon octicon-link"></span></a>Download</h3>
+        <p>Latest version of package is available in `drone.io project artifacts <a href="https://drone.io/github.com/pchomik/crunner/files">done.io projects artifacts.</a></p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+        <h3><a name="config" class="anchor" href="#config"><span class="octicon octicon-link"></span></a>Configuration</h3>
+        <p>Configuration file <b>.crunner.json</b> has to created in user home directory. The format of the file looks like below:</p>
+        <pre><code>
+{
+    "notifier": {
+        "cmd": "/usr/bin/notify-send",
+        "img_arg": "-i",
+        "msg_arg": "",
+        "add_args": ""
+    },
+    "tester": {
+        "cmd": "/usr/local/bin/py.test",
+        "args": "-s --timeout 1 --random --pep8",
+        "run_on_startup": true
+    },
+    "projects": {
+        "crunner": {
+            "active": true,
+            "test_path": "/home/user/workspace/crunner/test/",
+            "project_path": "/home/user/workspace/crunner"
+        }
+    }
+}
+        </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+        Presented configuration is notifier and test framework independent. It is possible to extend this configuration to watch
+        multiple projects by adding new configuration project.
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+        <h3><a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h3>
+        <p>crunner - Application to run test after every change and notify about results.</p>
+        <p>Copyright (C) 2014 Pawel Chomicki</p>
+        <p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+        <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+    </section>
+</div>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
+<!-- FOOTER  -->
+<div id="footer_wrap" class="outer">
+    <footer class="inner">
         <p class="copyright">Crunner maintained by <a href="https://github.com/pchomik">pchomik</a></p>
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
-  </body>
+    </footer>
+</div>
+</body>
 </html>
