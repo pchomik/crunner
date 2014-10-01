@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
-import json
 import sys
+import json
 
 from .logger import log
 
@@ -15,9 +15,9 @@ class ConfigLoader(object):
             log.error("File ~/.crunner.json doesn't exist")
             sys.exit(1)
         config_data = self._read_config_file()
-        notifier, tester, projects = self._parse_config_data(config_data)
-        self._validate_config_data(notifier, tester, projects)
-        return notifier, tester, projects
+        main, notifier, tester, projects = self._parse_config_data(config_data)
+        self._validate_config_data(main, notifier, tester, projects)
+        return main, notifier, tester, projects
 
     def _read_config_file(self):
         try:
@@ -27,13 +27,14 @@ class ConfigLoader(object):
             sys.exit(2)
 
     def _parse_config_data(self, config_data):
-        return config_data.get('notifier'), config_data.get('tester'), config_data.get('projects', {})
+        return config_data.get('main'), config_data.get('notifier'), config_data.get('tester'), config_data.get('projects', {})
 
-    def _validate_config_data(self, notifier, tester, projects):
+    def _validate_config_data(self, main, notifier, tester, projects):
         if notifier is None or tester is None:
             log.error("Wrong configuration syntax: no notifier/tester sections.")
             sys.exit(3)
-        validation_result = self._check_notifier(notifier)
+        validation_result = self._check_main(main)
+        validation_result += self._check_notifier(notifier)
         validation_result += self._check_tester(tester)
         validation_result += self._check_projects(projects)
         if validation_result:
@@ -45,11 +46,11 @@ class ConfigLoader(object):
         return self._are_keys_exist('notifier', notifier, keys)
 
     def _check_tester(self, tester):
-        keys = ['cmd', 'args', 'run_on_start']
+        keys = ['cmd', 'args']
         return self._are_keys_exist('tester', tester, keys)
 
     def _check_projects(self, projects):
-        keys = ['active', 'test_path', 'project_path']
+        keys = ['active', 'test_path', 'project_path', 'watching_types']
         result = []
         for name, settings in projects.items():
             project_result = self._are_keys_exist(name, settings, keys)
@@ -68,4 +69,8 @@ class ConfigLoader(object):
         log.error('\nFound error in configuration:\n' +
                   '\n'.join(result) +
                   '\n')
-        exit(4)
+        sys.exit(4)
+
+    def _check_main(self, main):
+        keys = ['run_on_start', 'delay']
+        return self._are_keys_exist('main', main, keys)

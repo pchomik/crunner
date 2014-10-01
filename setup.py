@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from setuptools import setup, find_packages
+from setuptools import setup
 
 
 requires = [
@@ -10,12 +10,13 @@ requires = [
 
 setup(
     name="crunner",
+    version="0.2.2",
     packages=['crunner'],
-    version="0.2.1",
-    description="Continues test runner.",
     author="Pawel Chomicki",
     author_email="pawel.chomicki@gmail.com",
-    install_requires=requires,
+    description="Continues test runner.",
     url="http://pchomik.github.io/crunner/",
+    install_requires=requires,
+    include_package_data=True,
     scripts=['script/crun']
 )

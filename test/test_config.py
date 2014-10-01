@@ -7,6 +7,10 @@ from crunner.config import ConfigLoader
 
 
 CONFIG_DATA = {
+    'main': {
+        'run_on_start': True,
+        'delay': 5
+    },
     'notifier': {
         'cmd': '/tmp/notify-send',
         'img_arg': '-i',
@@ -16,13 +20,13 @@ CONFIG_DATA = {
     'tester': {
         'cmd': '/tmp/py.test',
         'args': '-s',
-        'run_on_start': True
     },
     'projects': {
         'A': {
             'active': True,
             'test_path': '/tmp',
-            'project_path': '/tmp'
+            'project_path': '/tmp',
+            'watching_types': ['.*.py']
         }
     }
 }
@@ -41,18 +45,20 @@ class TestConfig(TestHelper):
     @patch('crunner.config.os.path.exists', Mock(return_value=True))
     def test__load__returns_notify_and_pytest_path_and_projects(self, fake_loads):
         fake_loads.return_value = CONFIG_DATA
-        notifier, pytest, projects = ConfigLoader().load()
+        main, notifier, pytest, projects = ConfigLoader().load()
         self.assertEqual(notifier['cmd'], '/tmp/notify-send')
         self.assertEqual(notifier['msg_arg'], '-m')
         self.assertEqual(notifier['img_arg'], '-i')
         self.assertEqual(notifier['add_args'], '--hint=int:transient:1')
         self.assertEqual(pytest['cmd'], '/tmp/py.test')
         self.assertEqual(pytest['args'], '-s')
-        self.assertEqual(pytest['run_on_start'], True)
         self.assertIn('A', projects)
         self.assertEqual(projects['A']['active'], True)
         self.assertEqual(projects['A']['test_path'], '/tmp')
         self.assertEqual(projects['A']['project_path'], '/tmp')
+        self.assertEqual(projects['A']['watching_types'], ['.*.py'])
+        self.assertEqual(main['run_on_start'], True)
+        self.assertEqual(main['delay'], 5)
 
     @patch('crunner.config.os.path.exists')
     def test__load__exits_if_file_does_not_exist(self, exists_mock):

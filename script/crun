@@ -17,17 +17,17 @@ def dispatch_tester_args(args):
     return args.get('cmd'), args.get('args')
 
 
-notifier_args, tester_args, projects = ConfigLoader().load()
+main_args, notifier_args, tester_args, projects = ConfigLoader().load()
 notifier = Notifier(*dispatch_notifier_args(notifier_args))
 runner = Runner(notifier, *dispatch_tester_args(tester_args))
 watchers = []
 for name, settings in projects.items():
     if settings['active']:
-        event = FileEvent([name, runner, settings['project_path'], settings['test_path']], regexes=['.*.py'])
+        event = FileEvent([name, runner, settings['project_path'], settings['test_path']], main_args["delay"], regexes=settings['watching_types'])
         watcher = FileWatcher(settings['project_path'], event)
         watcher.start()
         watchers.append(watcher)
-        if tester_args['run_on_start']:
+        if main_args['run_on_start']:
             event.run_tests()
 
 try:
