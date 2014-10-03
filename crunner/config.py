@@ -21,7 +21,8 @@ class ConfigLoader(object):
 
     def _read_config_file(self):
         try:
-            return json.loads(open(self.path, 'r').read())
+            with open(self.path, 'r') as f:
+                return json.loads(f.read())
         except ValueError as e:
             log.error("Cannot read configuration.\nReturned error is:\n    {}".format(e.message))
             sys.exit(2)
