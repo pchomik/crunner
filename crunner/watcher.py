@@ -18,4 +18,3 @@ class FileWatcher(object):
         if self.observer is not None:
             self.observer.stop()
             self.observer.join()
-
