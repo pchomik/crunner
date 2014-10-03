@@ -10,7 +10,7 @@ requires = [
 
 setup(
     name="crunner",
-    version="0.2.2",
+    version="0.2.3",
     packages=['crunner'],
     author="Pawel Chomicki",
     author_email="pawel.chomicki@gmail.com",
