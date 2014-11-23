@@ -18,6 +18,11 @@ Requirements
     * watchdog
     * mock
 
+Continues Integration
+=====================
+.. image:: https://drone.io/github.com/pchomik/crunner/status.png
+     :target: https://drone.io/github.com/pchomik/crunner/latest
+
 Installation
 ============
 
@@ -28,7 +33,7 @@ Installation
 Download
 ========
 
-Latest version of package is available in `drone.io project artifacts <a href="https://drone.io/github.com/pchomik/crunner/files">`_.
+Latest version of package is available in `drone.io project artifacts <https://drone.io/github.com/pchomik/crunner/files>`_.
 
 Configuration
 =============
