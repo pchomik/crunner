@@ -19,7 +19,7 @@ def dispatch_tester_args(args):
 
 
 def is_project_exist(projects, name):
-    if requested not in projects:
+    if requested is not None and requested not in projects:
         print("Provided project name ({}) doesn't exist in configuration".format(name))
         exit(1)
 
