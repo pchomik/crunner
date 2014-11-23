@@ -38,24 +38,28 @@ Configuration file **.crunner.json** has to created in user home directory. The 
 ::
 
     {
-        "notifier": {
-            "cmd": "/usr/bin/notify-send",
-            "img_arg": "-i",
-            "msg_arg": "",
-            "add_args": ""
-        },
-        "tester": {
-            "cmd": "/usr/local/bin/py.test",
-            "args": "-s --timeout 1 --random --pep8",
-            "run_on_startup": true
-        },
-        "projects": {
-            "crunner": {
-                "active": true,
-                "test_path": "/home/user/workspace/crunner/test/",
-                "project_path": "/home/user/workspace/crunner"
-            }
+      "main": {
+        "run_on_start": true,
+        "delay": 5
+      },
+      "notifier": {
+        "cmd": "/usr/bin/notify-send",
+        "img_arg": "-i",
+        "msg_arg": "",
+        "add_args": ""
+      },
+      "tester": {
+        "cmd": "py.test",
+        "args": "-s --timeout 1 --pep8"
+      },
+      "projects": {
+        "pytest-crunner": {
+          "active": true,
+          "test_path": "/home/user/crunner/test/",
+          "project_path": "/home/user/crunner",
+          "watching_types": [".*.py"]
         }
+      }
     }
 
 Presented configuration is notifier and test framework independent. 
