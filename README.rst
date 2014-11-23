@@ -61,6 +61,23 @@ Configuration file **.crunner.json** has to created in user home directory. The 
 Presented configuration is notifier and test framework independent. 
 It is possible to extend this configuration to watch multiple projects by adding new configuration project.
 
+Execution
+=========
+
+The main command is: **crun**
+
+Executed without argument will watch and test all projects configured as active.
+
+Executed with project name argument will watch and test only specified project.
+
+::
+
+    # To watch and test all active projects
+    crun
+
+    # To watch and test only one project
+    crun some_project
+
 License
 =======
 
