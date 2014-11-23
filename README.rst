@@ -28,7 +28,7 @@ Installation
 Download
 ========
 
-Latest version of package is available in `drone.io project artifacts <a href="https://drone.io/github.com/pchomik/crunner/files">`.
+Latest version of package is available in `drone.io project artifacts <a href="https://drone.io/github.com/pchomik/crunner/files">`_.
 
 Configuration
 =============
