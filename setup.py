@@ -10,7 +10,7 @@ requires = [
 
 setup(
     name="crunner",
-    version="0.4.1",
+    version="0.4.2",
     packages=['crunner'],
     author="Pawel Chomicki",
     author_email="pawel.chomicki@gmail.com",
@@ -18,5 +18,10 @@ setup(
     url="https://github.com/pchomik/crunner",
     install_requires=requires,
     include_package_data=True,
-    scripts=['script/crun']
+    scripts=['script/crun'],
+    classifiers=[
+        'Programming Language :: Python'
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.4"
+    ]
 )

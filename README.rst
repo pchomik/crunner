@@ -14,7 +14,7 @@ Main features:
 Requirements
 ============
 
-    * Python 2.7
+    * Python 2.7 or 3.4
     * watchdog
     * mock
 
